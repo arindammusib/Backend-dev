@@ -1,29 +1,25 @@
 import express from 'express'
 import dbConnection from './db/index.js';
 import dotenv from 'dotenv'
+import app from './app.js';
 
 dotenv.config({
     path:'./env'
 })
 
 
-dbConnection()
+dbConnection().
 
-// const dbConnection= async ()=>{
-//     try{
+then(()=>{
+    app.on("error",(error)=>{
+        console.log("Error occured");
+        throw error
+    })
+    app.listen(process.env.PORT || 8000,()=>{
+        console.log(`Server is running on ${process.env.PORT} `)
+    })
+})
+.catch((error)=>{
+    console.log("Momgodb con nection failed",error);
+})
 
-//        await mongoose.connect(`${process.env.DATABASE_URL}/${DB_NAME}`)
-//        app.on("error",(error)=>{
-//         console.log("Err is:",error);
-//         throw error
-//        })
-
-//        app.listen(process.env.PORT,()=>{
-//         console.log(`App is listening at ${process.env.PORT}`)
-//        })
-//     }catch(err){
-//         console.log(err);
-//     }
-
-// }
-// dbConnection();
