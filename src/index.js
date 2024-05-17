@@ -20,6 +20,6 @@ then(()=>{
     })
 })
 .catch((error)=>{
-    console.log("Momgodb con nection failed",error);
+    console.log("Momgodb connection failed",error);
 })
 
